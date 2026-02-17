@@ -54,13 +54,13 @@ echo "✅ Code updated to latest ${BRANCH}"
 # ========== STEP 4: STOP OLD CONTAINERS ==========
 echo ""
 echo "🛑 Step 4: Stopping existing containers..."
-docker-compose down --remove-orphans || true
+docker compose down --remove-orphans || true
 echo "✅ Old containers stopped"
 
 # ========== STEP 5: BUILD AND START ==========
 echo ""
 echo "🔨 Step 5: Building and starting containers..."
-docker-compose up -d --build
+docker compose up -d --build
 echo "✅ Containers started"
 
 # ========== STEP 6: VERIFY ==========
@@ -70,7 +70,7 @@ sleep 30
 
 echo ""
 echo "Container Status:"
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "=========================================="
