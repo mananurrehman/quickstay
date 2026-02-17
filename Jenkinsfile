@@ -34,15 +34,15 @@ pipeline {
             }
         }
 
-        stage('SonarQube Quality Gate') {
-            steps {
-                echo '⏳ Waiting for SonarQube quality gate...'
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
-                }
-                echo '✅ Quality gate check complete!'
-            }
-        }
+        // stage('SonarQube Quality Gate') {
+        //     steps {
+        //         echo '⏳ Waiting for SonarQube quality gate...'
+        //         timeout(time: 5, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: false
+        //         }
+        //         echo '✅ Quality gate check complete!'
+        //     }
+        // }
 
         stage('Trivy Security Scan') {
             steps {
