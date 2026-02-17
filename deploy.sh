@@ -22,12 +22,23 @@ mkdir -p ${DATA_DIR}/postgres
 mkdir -p ${DATA_DIR}/uploads
 echo "✅ Directories ready"
 
-# ========== STEP 2: NAVIGATE TO APP ==========
+# ========== STEP 2: SETUP APP DIRECTORY ==========
 echo ""
-echo "📂 Step 2: Navigating to app directory..."
-if [ ! -d "${APP_DIR}" ]; then
-    echo "📥 Cloning repository..."
+echo "📂 Step 2: Setting up app directory..."
+if [ ! -d "${APP_DIR}/.git" ]; then
+    echo "📥 Not a git repo. Cloning..."
+    # Backup .env.production if it exists
+    if [ -f "${APP_DIR}/.env.production" ]; then
+        cp ${APP_DIR}/.env.production /tmp/.env.production.backup
+    fi
+    # Remove and clone fresh
+    rm -rf ${APP_DIR}
     git clone https://github.com/mananurrehman/quickstay.git ${APP_DIR}
+    # Restore .env.production
+    if [ -f "/tmp/.env.production.backup" ]; then
+        cp /tmp/.env.production.backup ${APP_DIR}/.env.production
+        rm /tmp/.env.production.backup
+    fi
 fi
 cd ${APP_DIR}
 echo "✅ In ${APP_DIR}"
