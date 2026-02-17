@@ -1,0 +1,45 @@
+# .dockerignore
+
+# Virtual environment
+venv/
+
+# Git
+.git/
+.gitignore
+
+# Environment files
+.env
+.env.production
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Docker files (no need to copy into image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# CI/CD
+.github/
+Jenkinsfile
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+
+# Database migrations (will be generated inside container)
+migrations/

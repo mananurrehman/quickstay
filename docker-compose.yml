@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # ========== FLASK APP ==========
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quickstay-web
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql://quickstay_user:quickstay123@db:5432/quickstay
+    volumes:
+      - upload_data:/app/app/static/images/rooms/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - quickstay-network
+
+  # ========== POSTGRESQL ==========
+  db:
+    image: postgres:15-alpine
+    container_name: quickstay-db
+    environment:
+      - POSTGRES_DB=quickstay
+      - POSTGRES_USER=quickstay_user
+      - POSTGRES_PASSWORD=quickstay123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quickstay_user -d quickstay"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - quickstay-network
+
+# ========== PERSISTENT VOLUMES ==========
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/quickstay-data/postgres
+  upload_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/ubuntu/quickstay-data/uploads
+
+# ========== NETWORK ==========
+networks:
+  quickstay-network:
+    driver: bridge

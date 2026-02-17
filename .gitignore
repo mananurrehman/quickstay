@@ -22,7 +22,7 @@ package.json
 package-lock.json
 
 # Database
-migrations/
+# migrations/
 
 # OS
 .DS_Store
