@@ -105,7 +105,7 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no \
                             ${ORACLE_VM_USER}@${ORACLE_VM_IP} \
-                            "cd ${APP_DIR} && docker-compose ps"
+                            "cd ${APP_DIR} && docker compose ps"
                     '''
                 }
                 echo '✅ Verification complete!'
