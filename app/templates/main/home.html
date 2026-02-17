@@ -1,0 +1,502 @@
+<!-- app/templates/main/home.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-blue-500/5 dark:from-brand-light/5 dark:to-blue-400/5"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+                <!-- Left Content -->
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light">
+                            <i data-lucide="star" class="w-3 h-3 mr-1"></i>
+                            #1 Hotel Booking Platform
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-content-primary dark:text-content-dark-primary leading-tight">
+                            Find Your
+                            <span class="bg-logo-gradient bg-clip-text text-transparent">Perfect Stay</span>
+                        </h1>
+                        <p class="text-lg text-content-secondary dark:text-content-dark-secondary max-w-lg leading-relaxed">
+                            Discover and book the best hotel rooms at unbeatable prices. Your comfort is our priority.
+                        </p>
+                    </div>
+
+                    <!-- Search Form -->
+                    <form action="{{ url_for('main.rooms') }}" method="GET"
+                          class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-2xl p-4 sm:p-6 shadow-lg">
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Check-in -->
+                            <div>
+                                <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1.5">
+                                    Check-in
+                                </label>
+                                <input type="date" name="check_in"
+                                       class="w-full px-3 py-2.5 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                            </div>
+
+                            <!-- Check-out -->
+                            <div>
+                                <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1.5">
+                                    Check-out
+                                </label>
+                                <input type="date" name="check_out"
+                                       class="w-full px-3 py-2.5 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                            </div>
+
+                            <!-- Guests -->
+                            <div>
+                                <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1.5">
+                                    Guests
+                                </label>
+                                <select name="guests"
+                                        class="w-full px-3 py-2.5 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5+ Guests</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                                class="w-full mt-4 px-6 py-3 bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center space-x-2">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                            <span>Search Rooms</span>
+                        </button>
+                    </form>
+
+                    <!-- Stats -->
+                    <div class="flex items-center space-x-8">
+                        <div>
+                            <p class="text-2xl font-bold text-content-primary dark:text-content-dark-primary">500+</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Rooms Available</p>
+                        </div>
+                        <div class="w-px h-10 bg-line dark:bg-line-dark"></div>
+                        <div>
+                            <p class="text-2xl font-bold text-content-primary dark:text-content-dark-primary">10k+</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Happy Guests</p>
+                        </div>
+                        <div class="w-px h-10 bg-line dark:bg-line-dark"></div>
+                        <div>
+                            <p class="text-2xl font-bold text-content-primary dark:text-content-dark-primary">4.8</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Average Rating</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="hidden lg:block">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-logo-gradient rounded-3xl transform rotate-3 opacity-10"></div>
+                        <div class="relative bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-3xl p-8 space-y-6">
+                            <!-- Hotel Card Preview -->
+                            <div class="bg-bg-main dark:bg-bg-dark-main rounded-2xl overflow-hidden">
+                                <div class="h-48 bg-gradient-to-br from-brand/20 to-blue-400/20 dark:from-brand-light/20 dark:to-blue-300/20 flex items-center justify-center">
+                                    <i data-lucide="image" class="w-16 h-16 text-brand/30 dark:text-brand-light/30"></i>
+                                </div>
+                                <div class="p-4 space-y-2">
+                                    <h3 class="font-semibold text-content-primary dark:text-content-dark-primary">Deluxe Ocean Suite</h3>
+                                    <div class="flex items-center space-x-1">
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                                        <span class="text-xs text-content-secondary dark:text-content-dark-secondary ml-1">5.0</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-brand dark:text-brand-light font-bold">$199<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/10 text-green-700 dark:text-green-300">Available</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section class="py-20 bg-bg-surface dark:bg-bg-dark-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                    Why Choose Us
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-content-primary dark:text-content-dark-primary">
+                    Everything You Need for a
+                    <span class="bg-logo-gradient bg-clip-text text-transparent">Perfect Stay</span>
+                </h2>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Feature 1 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-brand/10 dark:bg-brand-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand/20 dark:group-hover:bg-brand-light/20 transition-colors">
+                        <i data-lucide="badge-dollar-sign" class="w-6 h-6 text-brand dark:text-brand-light"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary mb-2">Best Prices</h3>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        Get the most competitive rates with our price match guarantee.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-brand/10 dark:bg-brand-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand/20 dark:group-hover:bg-brand-light/20 transition-colors">
+                        <i data-lucide="zap" class="w-6 h-6 text-brand dark:text-brand-light"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary mb-2">Instant Booking</h3>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        Book your room instantly with real-time availability updates.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-brand/10 dark:bg-brand-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand/20 dark:group-hover:bg-brand-light/20 transition-colors">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-brand dark:text-brand-light"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary mb-2">Secure</h3>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        Your data and transactions are protected with industry-standard security.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-brand/10 dark:bg-brand-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand/20 dark:group-hover:bg-brand-light/20 transition-colors">
+                        <i data-lucide="thumbs-up" class="w-6 h-6 text-brand dark:text-brand-light"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary mb-2">Top Rated</h3>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        Highly rated by thousands of satisfied guests worldwide.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURED ROOMS SECTION ==================== -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+                <div>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                        Featured Rooms
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-content-primary dark:text-content-dark-primary">
+                        Popular
+                        <span class="bg-logo-gradient bg-clip-text text-transparent">Rooms</span>
+                    </h2>
+                </div>
+                <a href="{{ url_for('main.rooms') }}"
+                   class="mt-4 sm:mt-0 inline-flex items-center space-x-1 text-sm font-medium text-brand dark:text-brand-light hover:text-brand-hover dark:hover:text-brand transition-colors">
+                    <span>View All Rooms</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <!-- Rooms Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Room Card 1 -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="h-52 bg-gradient-to-br from-brand/10 to-blue-400/10 dark:from-brand-light/10 dark:to-blue-300/10 flex items-center justify-center relative">
+                        <i data-lucide="image" class="w-12 h-12 text-brand/20 dark:text-brand-light/20"></i>
+                        <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">
+                            Available
+                        </span>
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Standard</span>
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.5</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">
+                            Standard Comfort Room
+                        </h3>
+                        <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                            <span class="flex items-center space-x-1">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                                <span>2 Guests</span>
+                            </span>
+                            <span class="flex items-center space-x-1">
+                                <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
+                                <span>25 sqm</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                            <p class="text-xl font-bold text-brand dark:text-brand-light">
+                                $99<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span>
+                            </p>
+                            <a href="{{ url_for('main.rooms') }}"
+                               class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room Card 2 -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="h-52 bg-gradient-to-br from-purple-500/10 to-pink-400/10 dark:from-purple-400/10 dark:to-pink-300/10 flex items-center justify-center relative">
+                        <i data-lucide="image" class="w-12 h-12 text-purple-500/20 dark:text-purple-400/20"></i>
+                        <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">
+                            Available
+                        </span>
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Deluxe</span>
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">
+                            Deluxe Ocean Suite
+                        </h3>
+                        <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                            <span class="flex items-center space-x-1">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                                <span>3 Guests</span>
+                            </span>
+                            <span class="flex items-center space-x-1">
+                                <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
+                                <span>40 sqm</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                            <p class="text-xl font-bold text-brand dark:text-brand-light">
+                                $199<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span>
+                            </p>
+                            <a href="{{ url_for('main.rooms') }}"
+                               class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room Card 3 -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group">
+                    <div class="h-52 bg-gradient-to-br from-emerald-500/10 to-teal-400/10 dark:from-emerald-400/10 dark:to-teal-300/10 flex items-center justify-center relative">
+                        <i data-lucide="image" class="w-12 h-12 text-emerald-500/20 dark:text-emerald-400/20"></i>
+                        <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">
+                            Available
+                        </span>
+                    </div>
+                    <div class="p-5 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Premium</span>
+                            <div class="flex items-center space-x-1">
+                                <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">
+                            Premium Executive Room
+                        </h3>
+                        <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                            <span class="flex items-center space-x-1">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                                <span>4 Guests</span>
+                            </span>
+                            <span class="flex items-center space-x-1">
+                                <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
+                                <span>55 sqm</span>
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                            <p class="text-xl font-bold text-brand dark:text-brand-light">
+                                $349<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span>
+                            </p>
+                            <a href="{{ url_for('main.rooms') }}"
+                               class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TESTIMONIALS SECTION ==================== -->
+    <section class="py-20 bg-bg-surface dark:bg-bg-dark-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                    Testimonials
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-content-primary dark:text-content-dark-primary">
+                    What Our
+                    <span class="bg-logo-gradient bg-clip-text text-transparent">Guests Say</span>
+                </h2>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Testimonial 1 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 space-y-4">
+                    <div class="flex items-center space-x-1">
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        "Amazing experience! The booking process was seamless and the room exceeded my expectations. Will definitely book again."
+                    </p>
+                    <div class="flex items-center space-x-3 pt-2 border-t border-line dark:border-line-dark">
+                        <div class="w-10 h-10 bg-brand/10 dark:bg-brand-light/10 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-semibold text-brand dark:text-brand-light">JD</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">John Doe</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Business Traveler</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 space-y-4">
+                    <div class="flex items-center space-x-1">
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        "Perfect family vacation! The family suite was spacious and the kids loved the amenities. Great value for money."
+                    </p>
+                    <div class="flex items-center space-x-3 pt-2 border-t border-line dark:border-line-dark">
+                        <div class="w-10 h-10 bg-purple-500/10 dark:bg-purple-400/10 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-semibold text-purple-500 dark:text-purple-400">SJ</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">Sarah Johnson</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Family Vacation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 space-y-4">
+                    <div class="flex items-center space-x-1">
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        "Outstanding service! From check-in to check-out, everything was perfect. The staff was incredibly helpful and friendly."
+                    </p>
+                    <div class="flex items-center space-x-3 pt-2 border-t border-line dark:border-line-dark">
+                        <div class="w-10 h-10 bg-emerald-500/10 dark:bg-emerald-400/10 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-semibold text-emerald-500 dark:text-emerald-400">MC</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">Mike Chen</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Solo Traveler</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative bg-gradient-to-r from-brand to-blue-400 dark:from-brand-light dark:to-blue-300 rounded-2xl p-8 sm:p-12 lg:p-16 overflow-hidden">
+
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full transform -translate-x-1/2 translate-y-1/2"></div>
+                </div>
+
+                <div class="relative text-center space-y-6">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white">
+                        Ready to Book Your Stay?
+                    </h2>
+                    <p class="text-lg text-white/80 max-w-2xl mx-auto">
+                        Join thousands of happy guests. Find your perfect room and book instantly at the best prices.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="{{ url_for('main.rooms') }}"
+                           class="px-8 py-3 bg-white text-brand font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center space-x-2">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                            <span>Browse Rooms</span>
+                        </a>
+                        <a href="{{ url_for('auth.register') }}"
+                           class="px-8 py-3 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200 flex items-center space-x-2">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i>
+                            <span>Create Account</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // ===== Set minimum date for check-in to today =====
+    (function() {
+        try {
+            const today = new Date().toISOString().split('T')[0];
+            const checkInInput = document.querySelector('input[name="check_in"]');
+            const checkOutInput = document.querySelector('input[name="check_out"]');
+
+            if (checkInInput) {
+                checkInInput.setAttribute('min', today);
+                checkInInput.addEventListener('change', function() {
+                    if (checkOutInput) {
+                        checkOutInput.setAttribute('min', this.value);
+                        if (checkOutInput.value && checkOutInput.value <= this.value) {
+                            checkOutInput.value = '';
+                        }
+                    }
+                });
+            }
+
+            if (checkOutInput) {
+                checkOutInput.setAttribute('min', today);
+            }
+        } catch (error) {
+            console.error('Date picker error:', error);
+        }
+    })();
+</script>
+{% endblock %}
