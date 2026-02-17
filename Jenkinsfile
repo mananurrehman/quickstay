@@ -71,7 +71,7 @@ pipeline {
                     --exclude **/node_modules/**
                     --exclude **/migrations/**
                     --disableYarnAudit
-                ''', odcInstallation: 'OWASP'
+                ''', odcInstallation: 'dc'
                 echo '✅ OWASP check complete!'
             }
         }
