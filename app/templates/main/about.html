@@ -1,0 +1,272 @@
+<!-- app/templates/main/about.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-blue-500/5 dark:from-brand-light/5 dark:to-blue-400/5"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                    About QuickStay
+                </span>
+                <h1 class="text-4xl sm:text-5xl font-bold text-content-primary dark:text-content-dark-primary leading-tight mb-6">
+                    Your Trusted Partner in
+                    <span class="bg-logo-gradient bg-clip-text text-transparent">Hotel Booking</span>
+                </h1>
+                <p class="text-lg text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                    We're on a mission to make hotel booking simple, transparent, and accessible for everyone. Since our founding, we've helped thousands of travelers find their perfect stay.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== OUR STORY ==================== -->
+    <section class="py-16 bg-bg-surface dark:bg-bg-dark-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+                <!-- Left: Image Placeholder -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-logo-gradient rounded-2xl transform rotate-2 opacity-10"></div>
+                    <div class="relative bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-2xl p-12 flex items-center justify-center min-h-[350px]">
+                        <div class="text-center space-y-4">
+                            <div class="w-20 h-20 bg-brand/10 dark:bg-brand-light/10 rounded-2xl flex items-center justify-center mx-auto">
+                                <i data-lucide="building-2" class="w-10 h-10 text-brand dark:text-brand-light"></i>
+                            </div>
+                            <p class="text-sm text-content-secondary dark:text-content-dark-secondary">Established 2020</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="space-y-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light">
+                        Our Story
+                    </span>
+                    <h2 class="text-3xl font-bold text-content-primary dark:text-content-dark-primary">
+                        How It All
+                        <span class="bg-logo-gradient bg-clip-text text-transparent">Started</span>
+                    </h2>
+                    <p class="text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        QuickStay was born from a simple frustration — booking a hotel room shouldn't be complicated. Our founders experienced the pain of endless searching, hidden fees, and unreliable availability information.
+                    </p>
+                    <p class="text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        We built QuickStay to solve these problems. Our platform provides real-time availability, transparent pricing, and a seamless booking experience that puts guests first.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="space-y-1">
+                            <p class="text-3xl font-bold text-brand dark:text-brand-light">10K+</p>
+                            <p class="text-sm text-content-secondary dark:text-content-dark-secondary">Happy Guests</p>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-3xl font-bold text-brand dark:text-brand-light">500+</p>
+                            <p class="text-sm text-content-secondary dark:text-content-dark-secondary">Rooms Available</p>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-3xl font-bold text-brand dark:text-brand-light">50+</p>
+                            <p class="text-sm text-content-secondary dark:text-content-dark-secondary">Cities Covered</p>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-3xl font-bold text-brand dark:text-brand-light">4.8</p>
+                            <p class="text-sm text-content-secondary dark:text-content-dark-secondary">Average Rating</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MISSION & VISION ==================== -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <!-- Mission -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-8 space-y-4 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-14 h-14 bg-brand/10 dark:bg-brand-light/10 rounded-xl flex items-center justify-center">
+                        <i data-lucide="target" class="w-7 h-7 text-brand dark:text-brand-light"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-content-primary dark:text-content-dark-primary">Our Mission</h3>
+                    <p class="text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        To simplify hotel booking by providing a transparent, reliable, and user-friendly platform that connects travelers with their ideal accommodations at the best prices.
+                    </p>
+                </div>
+
+                <!-- Vision -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-8 space-y-4 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-14 h-14 bg-purple-500/10 dark:bg-purple-400/10 rounded-xl flex items-center justify-center">
+                        <i data-lucide="eye" class="w-7 h-7 text-purple-500 dark:text-purple-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-content-primary dark:text-content-dark-primary">Our Vision</h3>
+                    <p class="text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                        To become the world's most trusted hotel booking platform, where every traveler can find, compare, and book their perfect stay with complete confidence and ease.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== OUR VALUES ==================== -->
+    <section class="py-16 bg-bg-surface dark:bg-bg-dark-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                    What Drives Us
+                </span>
+                <h2 class="text-3xl font-bold text-content-primary dark:text-content-dark-primary">
+                    Our Core
+                    <span class="bg-logo-gradient bg-clip-text text-transparent">Values</span>
+                </h2>
+            </div>
+
+            <!-- Values Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Value 1 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-3 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-12 h-12 bg-brand/10 dark:bg-brand-light/10 rounded-xl flex items-center justify-center mx-auto">
+                        <i data-lucide="heart" class="w-6 h-6 text-brand dark:text-brand-light"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Guest First</h4>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        Every decision we make starts with our guests' needs and comfort.
+                    </p>
+                </div>
+
+                <!-- Value 2 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-3 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-12 h-12 bg-emerald-500/10 dark:bg-emerald-400/10 rounded-xl flex items-center justify-center mx-auto">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500 dark:text-emerald-400"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Trust</h4>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        Transparent pricing with no hidden fees. What you see is what you pay.
+                    </p>
+                </div>
+
+                <!-- Value 3 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-3 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-12 h-12 bg-amber-500/10 dark:bg-amber-400/10 rounded-xl flex items-center justify-center mx-auto">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-amber-500 dark:text-amber-400"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Quality</h4>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        We partner only with hotels that meet our high standards of excellence.
+                    </p>
+                </div>
+
+                <!-- Value 4 -->
+                <div class="bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-3 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-500/10 dark:bg-blue-400/10 rounded-xl flex items-center justify-center mx-auto">
+                        <i data-lucide="zap" class="w-6 h-6 text-blue-500 dark:text-blue-400"></i>
+                    </div>
+                    <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Innovation</h4>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        Continuously improving our platform with the latest technology.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TEAM SECTION ==================== -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                    Our Team
+                </span>
+                <h2 class="text-3xl font-bold text-content-primary dark:text-content-dark-primary">
+                    Meet the
+                    <span class="bg-logo-gradient bg-clip-text text-transparent">People Behind QuickStay</span>
+                </h2>
+            </div>
+
+            <!-- Team Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Team Member 1 -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-4 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-20 h-20 bg-brand/10 dark:bg-brand-light/10 rounded-full flex items-center justify-center mx-auto">
+                        <span class="text-2xl font-bold text-brand dark:text-brand-light">MR</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Manan ur Rehman</h4>
+                        <p class="text-sm text-brand dark:text-brand-light">Founder & CEO</p>
+                    </div>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        DevOps Engineer and software developer dedicated to improving system reliability and  deployments.
+                    </p>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-4 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-20 h-20 bg-purple-500/10 dark:bg-purple-400/10 rounded-full flex items-center justify-center mx-auto">
+                        <span class="text-2xl font-bold text-purple-500 dark:text-purple-400">FA</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Fatima Ayoub</h4>
+                        <p class="text-sm text-purple-500 dark:text-purple-400">Head of Operations</p>
+                    </div>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        Expert in customer experience. Ensures every booking is smooth and hassle-free.
+                    </p>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-6 text-center space-y-4 hover:shadow-md hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300">
+                    <div class="w-20 h-20 bg-emerald-500/10 dark:bg-emerald-400/10 rounded-full flex items-center justify-center mx-auto">
+                        <span class="text-2xl font-bold text-emerald-500 dark:text-emerald-400">SK</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary">Sharoz Khan</h4>
+                        <p class="text-sm text-emerald-500 dark:text-emerald-400">Lead Developer</p>
+                    </div>
+                    <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                        Full-stack developer who built QuickStay from the ground up with modern technologies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative bg-gradient-to-r from-brand to-blue-400 dark:from-brand-light dark:to-blue-300 rounded-2xl p-8 sm:p-12 overflow-hidden">
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full transform -translate-x-1/2 translate-y-1/2"></div>
+                </div>
+                <div class="relative text-center space-y-6">
+                    <h2 class="text-3xl font-bold text-white">Ready to Experience QuickStay?</h2>
+                    <p class="text-lg text-white/80 max-w-2xl mx-auto">
+                        Join thousands of happy guests and find your perfect room today.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="{{ url_for('main.rooms') }}"
+                           class="px-8 py-3 bg-white text-brand font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center space-x-2">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                            <span>Browse Rooms</span>
+                        </a>
+                        <a href="{{ url_for('main.contact') }}"
+                           class="px-8 py-3 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-all duration-200 flex items-center space-x-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>Contact Us</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -57,8 +57,6 @@ def _register_blueprints(app):
 
 
 def _register_error_handlers(app):
-    """Register custom error pages"""
-
     @app.errorhandler(404)
     def not_found(error):
         try:
@@ -68,8 +66,10 @@ def _register_error_handlers(app):
 
     @app.errorhandler(500)
     def internal_error(error):
-        return "Internal server error", 500
-
+        try:
+            return render_template('extra/500.html'), 500
+        except Exception:
+            return "Internal server error", 500
 
 def _setup_login_manager():
     """Configure Flask-Login user loader"""

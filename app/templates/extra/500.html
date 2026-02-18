@@ -1,0 +1,108 @@
+<!-- app/templates/extra/500.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Server Error{% endblock %}
+
+{% block content %}
+
+    <section class="min-h-[70vh] flex items-center justify-center py-16">
+        <div class="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+            <!-- 500 Illustration -->
+            <div class="relative mb-8">
+                <div class="text-[150px] sm:text-[200px] font-bold leading-none bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent opacity-10 select-none">
+                    500
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-red-500/10 dark:bg-red-400/10 rounded-full flex items-center justify-center">
+                        <i data-lucide="alert-triangle" class="w-12 h-12 text-red-500 dark:text-red-400"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="space-y-4">
+                <h1 class="text-3xl sm:text-4xl font-bold text-content-primary dark:text-content-dark-primary">
+                    Something Went Wrong
+                </h1>
+                <p class="text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                    We're experiencing an internal server error. Our team has been notified and is working to fix it. Please try again later.
+                </p>
+            </div>
+
+            <!-- Status Card -->
+            <div class="mt-8 bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-6 space-y-4">
+                <div class="flex items-center justify-center space-x-2">
+                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium text-red-500 dark:text-red-400">Server Error Detected</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3 text-left">
+                        <div class="w-8 h-8 bg-brand/10 dark:bg-brand-light/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i data-lucide="refresh-cw" class="w-4 h-4 text-brand dark:text-brand-light"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">Try Refreshing</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">Sometimes a simple refresh can fix the issue.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 text-left">
+                        <div class="w-8 h-8 bg-amber-500/10 dark:bg-amber-400/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i data-lucide="clock" class="w-4 h-4 text-amber-500 dark:text-amber-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">Wait a Moment</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">The issue might be temporary. Try again in a few minutes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 text-left">
+                        <div class="w-8 h-8 bg-emerald-500/10 dark:bg-emerald-400/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i data-lucide="mail" class="w-4 h-4 text-emerald-500 dark:text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">Contact Support</p>
+                            <p class="text-xs text-content-secondary dark:text-content-dark-secondary">If the problem persists, reach out to us for help.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8">
+                <button onclick="window.location.reload()"
+                        class="w-full sm:w-auto px-6 py-3 bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center space-x-2">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    <span>Refresh Page</span>
+                </button>
+                <a href="{{ url_for('main.home') }}"
+                   class="w-full sm:w-auto px-6 py-3 bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary font-medium rounded-lg hover:bg-bg-main dark:hover:bg-bg-dark-main transition-all duration-200 flex items-center justify-center space-x-2">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span>Back to Home</span>
+                </a>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="mt-12 pt-8 border-t border-line dark:border-line-dark">
+                <p class="text-sm text-content-secondary dark:text-content-dark-secondary mb-4">
+                    Need immediate help?
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="mailto:info@quickstay.com"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        <span>info@quickstay.com</span>
+                    </a>
+                    <span class="text-line dark:text-line-dark">•</span>
+                    <a href="tel:+15551234567"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="phone" class="w-4 h-4"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+<!-- app/templates/extra/404.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}404{% endblock %}
+
+{% block content %}
+
+    <section class="min-h-[70vh] flex items-center justify-center py-16">
+        <div class="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+            <!-- 404 Illustration -->
+            <div class="relative mb-8">
+                <div class="text-[150px] sm:text-[200px] font-bold leading-none bg-logo-gradient bg-clip-text text-transparent opacity-10 select-none">
+                    404
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-brand/10 dark:bg-brand-light/10 rounded-full flex items-center justify-center">
+                        <i data-lucide="search-x" class="w-12 h-12 text-brand dark:text-brand-light"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="space-y-4">
+                <h1 class="text-3xl sm:text-4xl font-bold text-content-primary dark:text-content-dark-primary">
+                    Page Not Found
+                </h1>
+                <p class="text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                    Sorry, the page you're looking for doesn't exist or has been moved. Let's get you back on track.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8">
+                <a href="{{ url_for('main.home') }}"
+                   class="w-full sm:w-auto px-6 py-3 bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center space-x-2">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span>Back to Home</span>
+                </a>
+                <a href="{{ url_for('main.rooms') }}"
+                   class="w-full sm:w-auto px-6 py-3 bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary font-medium rounded-lg hover:bg-bg-main dark:hover:bg-bg-dark-main transition-all duration-200 flex items-center justify-center space-x-2">
+                    <i data-lucide="bed-double" class="w-4 h-4"></i>
+                    <span>Browse Rooms</span>
+                </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="mt-12 pt-8 border-t border-line dark:border-line-dark">
+                <p class="text-sm text-content-secondary dark:text-content-dark-secondary mb-4">
+                    Here are some helpful links:
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <a href="{{ url_for('main.home') }}"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                        <span>Home</span>
+                    </a>
+                    <span class="text-line dark:text-line-dark">•</span>
+                    <a href="{{ url_for('main.rooms') }}"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="bed-double" class="w-4 h-4"></i>
+                        <span>Rooms</span>
+                    </a>
+                    <span class="text-line dark:text-line-dark">•</span>
+                    <a href="{{ url_for('main.about') }}"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <span>About</span>
+                    </a>
+                    <span class="text-line dark:text-line-dark">•</span>
+                    <a href="{{ url_for('main.contact') }}"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        <span>Contact</span>
+                    </a>
+                    <span class="text-line dark:text-line-dark">•</span>
+                    <a href="{{ url_for('main.faq') }}"
+                       class="flex items-center space-x-1.5 text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                        <span>FAQ</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

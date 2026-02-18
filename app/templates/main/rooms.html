@@ -1,0 +1,583 @@
+<!-- app/templates/main/rooms.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block content %}
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand/5 via-transparent to-blue-500/5 dark:from-brand-light/5 dark:to-blue-400/5"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand/10 dark:bg-brand-light/10 text-brand dark:text-brand-light mb-4">
+                    Our Rooms
+                </span>
+                <h1 class="text-4xl sm:text-5xl font-bold text-content-primary dark:text-content-dark-primary leading-tight mb-6">
+                    Find Your
+                    <span class="bg-logo-gradient bg-clip-text text-transparent">Perfect Room</span>
+                </h1>
+                <p class="text-lg text-content-secondary dark:text-content-dark-secondary leading-relaxed">
+                    Browse our collection of carefully curated rooms designed for comfort and luxury.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FILTERS + ROOMS ==================== -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8">
+
+                <!-- ===== LEFT SIDEBAR: FILTERS ===== -->
+                <div class="lg:col-span-1">
+
+                    <!-- Mobile Filter Toggle -->
+                    <button id="filter-toggle"
+                            class="lg:hidden w-full flex items-center justify-between px-4 py-3 bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl mb-4">
+                        <span class="flex items-center space-x-2 text-sm font-medium text-content-primary dark:text-content-dark-primary">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                            <span>Filters</span>
+                        </span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-content-secondary dark:text-content-dark-secondary" id="filter-icon"></i>
+                    </button>
+
+                    <!-- Filter Panel -->
+                    <div id="filter-panel" class="hidden lg:block space-y-6">
+                        <form method="GET" action="{{ url_for('main.rooms') }}" id="filter-form">
+
+                            <!-- Date Range -->
+                            <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-5 space-y-4">
+                                <h3 class="text-sm font-semibold text-content-primary dark:text-content-dark-primary flex items-center space-x-2">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-brand dark:text-brand-light"></i>
+                                    <span>Dates</span>
+                                </h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1">Check-in</label>
+                                        <input type="date" name="check_in" value="{{ request.args.get('check_in', '') }}"
+                                               class="w-full px-3 py-2 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1">Check-out</label>
+                                        <input type="date" name="check_out" value="{{ request.args.get('check_out', '') }}"
+                                               class="w-full px-3 py-2 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Room Type -->
+                            <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-5 space-y-4">
+                                <h3 class="text-sm font-semibold text-content-primary dark:text-content-dark-primary flex items-center space-x-2">
+                                    <i data-lucide="bed-double" class="w-4 h-4 text-brand dark:text-brand-light"></i>
+                                    <span>Room Type</span>
+                                </h3>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2 cursor-pointer group">
+                                        <input type="checkbox" name="room_type" value="Standard"
+                                               {{ 'checked' if 'Standard' in request.args.getlist('room_type') else '' }}
+                                               class="w-4 h-4 text-brand rounded border-line dark:border-line-dark focus:ring-brand">
+                                        <span class="text-sm text-content-secondary dark:text-content-dark-secondary group-hover:text-content-primary dark:group-hover:text-content-dark-primary transition-colors">Standard</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 cursor-pointer group">
+                                        <input type="checkbox" name="room_type" value="Deluxe"
+                                               {{ 'checked' if 'Deluxe' in request.args.getlist('room_type') else '' }}
+                                               class="w-4 h-4 text-brand rounded border-line dark:border-line-dark focus:ring-brand">
+                                        <span class="text-sm text-content-secondary dark:text-content-dark-secondary group-hover:text-content-primary dark:group-hover:text-content-dark-primary transition-colors">Deluxe</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 cursor-pointer group">
+                                        <input type="checkbox" name="room_type" value="Premium"
+                                               {{ 'checked' if 'Premium' in request.args.getlist('room_type') else '' }}
+                                               class="w-4 h-4 text-brand rounded border-line dark:border-line-dark focus:ring-brand">
+                                        <span class="text-sm text-content-secondary dark:text-content-dark-secondary group-hover:text-content-primary dark:group-hover:text-content-dark-primary transition-colors">Premium</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2 cursor-pointer group">
+                                        <input type="checkbox" name="room_type" value="Family"
+                                               {{ 'checked' if 'Family' in request.args.getlist('room_type') else '' }}
+                                               class="w-4 h-4 text-brand rounded border-line dark:border-line-dark focus:ring-brand">
+                                        <span class="text-sm text-content-secondary dark:text-content-dark-secondary group-hover:text-content-primary dark:group-hover:text-content-dark-primary transition-colors">Family</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Price Range -->
+                            <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-5 space-y-4">
+                                <h3 class="text-sm font-semibold text-content-primary dark:text-content-dark-primary flex items-center space-x-2">
+                                    <i data-lucide="dollar-sign" class="w-4 h-4 text-brand dark:text-brand-light"></i>
+                                    <span>Price Range</span>
+                                </h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1">Min Price ($)</label>
+                                        <input type="number" name="min_price" placeholder="0" min="0"
+                                               value="{{ request.args.get('min_price', '') }}"
+                                               class="w-full px-3 py-2 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1">Max Price ($)</label>
+                                        <input type="number" name="max_price" placeholder="1000" min="0"
+                                               value="{{ request.args.get('max_price', '') }}"
+                                               class="w-full px-3 py-2 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guests -->
+                            <div class="bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl p-5 space-y-4">
+                                <h3 class="text-sm font-semibold text-content-primary dark:text-content-dark-primary flex items-center space-x-2">
+                                    <i data-lucide="users" class="w-4 h-4 text-brand dark:text-brand-light"></i>
+                                    <span>Guests</span>
+                                </h3>
+                                <select name="guests"
+                                        class="w-full px-3 py-2 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                    <option value="">Any</option>
+                                    <option value="1" {{ 'selected' if request.args.get('guests') == '1' else '' }}>1 Guest</option>
+                                    <option value="2" {{ 'selected' if request.args.get('guests') == '2' else '' }}>2 Guests</option>
+                                    <option value="3" {{ 'selected' if request.args.get('guests') == '3' else '' }}>3 Guests</option>
+                                    <option value="4" {{ 'selected' if request.args.get('guests') == '4' else '' }}>4 Guests</option>
+                                    <option value="5" {{ 'selected' if request.args.get('guests') == '5' else '' }}>5+ Guests</option>
+                                </select>
+                            </div>
+
+                            <!-- Filter Buttons -->
+                            <div class="space-y-2">
+                                <button type="submit"
+                                        class="w-full px-4 py-2.5 bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 text-sm">
+                                    <i data-lucide="search" class="w-4 h-4"></i>
+                                    <span>Apply Filters</span>
+                                </button>
+                                <a href="{{ url_for('main.rooms') }}"
+                                   class="w-full px-4 py-2.5 bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark text-content-secondary dark:text-content-dark-secondary font-medium rounded-lg hover:bg-bg-main dark:hover:bg-bg-dark-main transition-all duration-200 flex items-center justify-center space-x-2 text-sm">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                    <span>Clear Filters</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ===== RIGHT: ROOMS GRID ===== -->
+                <div class="lg:col-span-3">
+
+                    <!-- Sort Bar -->
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-3 sm:space-y-0">
+                        <p class="text-sm text-content-secondary dark:text-content-dark-secondary">
+                            {% if rooms %}
+                                Showing <span class="font-medium text-content-primary dark:text-content-dark-primary">{{ rooms|length }}</span> rooms
+                            {% else %}
+                                Showing all available rooms
+                            {% endif %}
+                        </p>
+                        <div class="flex items-center space-x-2">
+                            <label class="text-sm text-content-secondary dark:text-content-dark-secondary">Sort by:</label>
+                            <select id="sort-select"
+                                    class="px-3 py-2 rounded-lg bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                                <option value="recommended">Recommended</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Rating</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Rooms Grid -->
+                    <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-6" id="rooms-grid">
+
+                        {% if rooms %}
+                            {% for room in rooms %}
+                                <!-- Dynamic Room Card -->
+                                <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                     data-price="{{ room.price_per_night }}"
+                                     data-rating="{{ room.rating }}"
+                                     data-type="{{ room.room_type }}">
+
+                                    <!-- Room Image -->
+                                    <div class="h-48 bg-gradient-to-br from-brand/10 to-blue-400/10 dark:from-brand-light/10 dark:to-blue-300/10 flex items-center justify-center relative">
+                                        {% if room.image and room.image != 'default_room.jpg' %}
+                                            <img src="{{ url_for('static', filename='images/rooms/' + room.image) }}"
+                                                 alt="{{ room.name }}"
+                                                 class="w-full h-full object-cover">
+                                        {% else %}
+                                            <i data-lucide="image" class="w-12 h-12 text-brand/20 dark:text-brand-light/20"></i>
+                                        {% endif %}
+
+                                        <!-- Status Badge -->
+                                        <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+                                            {% if room.status == 'available' %}
+                                                bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300
+                                            {% elif room.status == 'booked' %}
+                                                bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-300
+                                            {% else %}
+                                                bg-yellow-100 dark:bg-yellow-500/20 text-yellow-700 dark:text-yellow-300
+                                            {% endif %}
+                                        ">
+                                            {{ room.status | capitalize }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Room Details -->
+                                    <div class="p-5 space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">
+                                                {{ room.room_type }}
+                                            </span>
+                                            <div class="flex items-center space-x-1">
+                                                <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                                <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">{{ room.rating }}</span>
+                                            </div>
+                                        </div>
+
+                                        <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">
+                                            {{ room.name }}
+                                        </h3>
+
+                                        <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                            <span class="flex items-center space-x-1">
+                                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                                                <span>{{ room.max_guests }} Guests</span>
+                                            </span>
+                                            {% if room.room_size %}
+                                                <span class="flex items-center space-x-1">
+                                                    <i data-lucide="maximize" class="w-3.5 h-3.5"></i>
+                                                    <span>{{ room.room_size }}</span>
+                                                </span>
+                                            {% endif %}
+                                        </div>
+
+                                        <!-- Amenities Preview -->
+                                        {% if room.get_amenities_list() %}
+                                            <div class="flex flex-wrap gap-1.5">
+                                                {% for amenity in room.get_amenities_list()[:3] %}
+                                                    <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">
+                                                        {{ amenity }}
+                                                    </span>
+                                                {% endfor %}
+                                                {% if room.get_amenities_list()|length > 3 %}
+                                                    <span class="text-xs text-brand dark:text-brand-light">
+                                                        +{{ room.get_amenities_list()|length - 3 }} more
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                            <p class="text-xl font-bold text-brand dark:text-brand-light">
+                                                ${{ room.price_per_night }}<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span>
+                                            </p>
+                                            <a href="#"
+                                               class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        {% else %}
+                            <!-- Empty State / Dummy Cards -->
+
+                            <!-- Room Card 1 -->
+                            <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                 data-price="99" data-rating="4.5" data-type="Standard">
+                                <div class="h-48 bg-gradient-to-br from-brand/10 to-blue-400/10 dark:from-brand-light/10 dark:to-blue-300/10 flex items-center justify-center relative">
+                                    <i data-lucide="image" class="w-12 h-12 text-brand/20 dark:text-brand-light/20"></i>
+                                    <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">Available</span>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Standard</span>
+                                        <div class="flex items-center space-x-1">
+                                            <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                            <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.5</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">Standard Comfort Room</h3>
+                                    <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                        <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3.5 h-3.5"></i><span>2 Guests</span></span>
+                                        <span class="flex items-center space-x-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i><span>25 sqm</span></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">WiFi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">TV</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">AC</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                        <p class="text-xl font-bold text-brand dark:text-brand-light">$99<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <a href="#" class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Room Card 2 -->
+                            <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                 data-price="199" data-rating="4.8" data-type="Deluxe">
+                                <div class="h-48 bg-gradient-to-br from-purple-500/10 to-pink-400/10 dark:from-purple-400/10 dark:to-pink-300/10 flex items-center justify-center relative">
+                                    <i data-lucide="image" class="w-12 h-12 text-purple-500/20 dark:text-purple-400/20"></i>
+                                    <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">Available</span>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Deluxe</span>
+                                        <div class="flex items-center space-x-1">
+                                            <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                            <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.8</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">Deluxe Ocean Suite</h3>
+                                    <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                        <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3.5 h-3.5"></i><span>3 Guests</span></span>
+                                        <span class="flex items-center space-x-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i><span>40 sqm</span></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">WiFi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Mini Bar</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Ocean View</span>
+                                        <span class="text-xs text-brand dark:text-brand-light">+2 more</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                        <p class="text-xl font-bold text-brand dark:text-brand-light">$199<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <a href="#" class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Room Card 3 -->
+                            <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                 data-price="349" data-rating="4.9" data-type="Premium">
+                                <div class="h-48 bg-gradient-to-br from-emerald-500/10 to-teal-400/10 dark:from-emerald-400/10 dark:to-teal-300/10 flex items-center justify-center relative">
+                                    <i data-lucide="image" class="w-12 h-12 text-emerald-500/20 dark:text-emerald-400/20"></i>
+                                    <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">Available</span>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Premium</span>
+                                        <div class="flex items-center space-x-1">
+                                            <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                            <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.9</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">Premium Executive Room</h3>
+                                    <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                        <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3.5 h-3.5"></i><span>4 Guests</span></span>
+                                        <span class="flex items-center space-x-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i><span>55 sqm</span></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">WiFi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Spa</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Room Service</span>
+                                        <span class="text-xs text-brand dark:text-brand-light">+4 more</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                        <p class="text-xl font-bold text-brand dark:text-brand-light">$349<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <a href="#" class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Room Card 4 -->
+                            <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                 data-price="279" data-rating="4.7" data-type="Family">
+                                <div class="h-48 bg-gradient-to-br from-amber-500/10 to-orange-400/10 dark:from-amber-400/10 dark:to-orange-300/10 flex items-center justify-center relative">
+                                    <i data-lucide="image" class="w-12 h-12 text-amber-500/20 dark:text-amber-400/20"></i>
+                                    <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">Available</span>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Family</span>
+                                        <div class="flex items-center space-x-1">
+                                            <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                            <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.7</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">Family Garden Suite</h3>
+                                    <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                        <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3.5 h-3.5"></i><span>5 Guests</span></span>
+                                        <span class="flex items-center space-x-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i><span>65 sqm</span></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">WiFi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Kids Area</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Garden View</span>
+                                        <span class="text-xs text-brand dark:text-brand-light">+3 more</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                        <p class="text-xl font-bold text-brand dark:text-brand-light">$279<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <a href="#" class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Room Card 5 -->
+                            <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                 data-price="149" data-rating="4.6" data-type="Standard">
+                                <div class="h-48 bg-gradient-to-br from-cyan-500/10 to-blue-400/10 dark:from-cyan-400/10 dark:to-blue-300/10 flex items-center justify-center relative">
+                                    <i data-lucide="image" class="w-12 h-12 text-cyan-500/20 dark:text-cyan-400/20"></i>
+                                    <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-300">Booked</span>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Standard</span>
+                                        <div class="flex items-center space-x-1">
+                                            <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                            <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">4.6</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">Standard City View</h3>
+                                    <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                        <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3.5 h-3.5"></i><span>2 Guests</span></span>
+                                        <span class="flex items-center space-x-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i><span>28 sqm</span></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">WiFi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">TV</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">City View</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                        <p class="text-xl font-bold text-brand dark:text-brand-light">$149<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <span class="px-4 py-2 text-sm font-medium text-content-secondary dark:text-content-dark-secondary bg-bg-main dark:bg-bg-dark-main rounded-lg cursor-not-allowed">Unavailable</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Room Card 6 -->
+                            <div class="room-card bg-bg-surface dark:bg-bg-dark-surface border border-line dark:border-line-dark rounded-xl overflow-hidden hover:shadow-lg hover:border-brand/20 dark:hover:border-brand-light/20 transition-all duration-300 group"
+                                 data-price="449" data-rating="5.0" data-type="Premium">
+                                <div class="h-48 bg-gradient-to-br from-rose-500/10 to-pink-400/10 dark:from-rose-400/10 dark:to-pink-300/10 flex items-center justify-center relative">
+                                    <i data-lucide="image" class="w-12 h-12 text-rose-500/20 dark:text-rose-400/20"></i>
+                                    <span class="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-300">Available</span>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-medium text-brand dark:text-brand-light bg-brand/10 dark:bg-brand-light/10 px-2 py-0.5 rounded">Premium</span>
+                                        <div class="flex items-center space-x-1">
+                                            <i data-lucide="star" class="w-3.5 h-3.5 text-yellow-400 fill-yellow-400"></i>
+                                            <span class="text-xs font-medium text-content-secondary dark:text-content-dark-secondary">5.0</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary group-hover:text-brand dark:group-hover:text-brand-light transition-colors">Royal Penthouse Suite</h3>
+                                    <div class="flex items-center space-x-4 text-xs text-content-secondary dark:text-content-dark-secondary">
+                                        <span class="flex items-center space-x-1"><i data-lucide="users" class="w-3.5 h-3.5"></i><span>4 Guests</span></span>
+                                        <span class="flex items-center space-x-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i><span>80 sqm</span></span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">WiFi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Jacuzzi</span>
+                                        <span class="text-xs bg-bg-main dark:bg-bg-dark-main text-content-secondary dark:text-content-dark-secondary px-2 py-0.5 rounded">Butler</span>
+                                        <span class="text-xs text-brand dark:text-brand-light">+5 more</span>
+                                    </div>
+                                    <div class="flex items-center justify-between pt-3 border-t border-line dark:border-line-dark">
+                                        <p class="text-xl font-bold text-brand dark:text-brand-light">$449<span class="text-xs font-normal text-content-secondary dark:text-content-dark-secondary">/night</span></p>
+                                        <a href="#" class="px-4 py-2 text-sm font-medium text-white bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover rounded-lg transition-all">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    </div>
+
+                    <!-- No Results Message (hidden by default) -->
+                    <div id="no-results" class="hidden text-center py-16">
+                        <div class="w-16 h-16 bg-brand/10 dark:bg-brand-light/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="search-x" class="w-8 h-8 text-brand dark:text-brand-light"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-content-primary dark:text-content-dark-primary mb-2">No Rooms Found</h3>
+                        <p class="text-sm text-content-secondary dark:text-content-dark-secondary mb-4">Try adjusting your filters to find available rooms.</p>
+                        <a href="{{ url_for('main.rooms') }}"
+                           class="inline-flex items-center space-x-2 px-4 py-2 bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover text-white text-sm font-medium rounded-lg transition-all">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            <span>Clear Filters</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // ===== Mobile Filter Toggle =====
+    (function() {
+        try {
+            const filterToggle = document.getElementById('filter-toggle');
+            const filterPanel = document.getElementById('filter-panel');
+            const filterIcon = document.getElementById('filter-icon');
+
+            if (filterToggle && filterPanel) {
+                filterToggle.addEventListener('click', function() {
+                    filterPanel.classList.toggle('hidden');
+                    filterIcon.classList.toggle('rotate-180');
+                });
+            }
+        } catch (error) {
+            console.error('Filter toggle error:', error);
+        }
+    })();
+
+    // ===== Client-side Sorting =====
+    (function() {
+        try {
+            const sortSelect = document.getElementById('sort-select');
+            const roomsGrid = document.getElementById('rooms-grid');
+
+            if (sortSelect && roomsGrid) {
+                sortSelect.addEventListener('change', function() {
+                    try {
+                        const cards = Array.from(roomsGrid.querySelectorAll('.room-card'));
+                        const sortBy = this.value;
+
+                        cards.sort(function(a, b) {
+                            if (sortBy === 'price-low') {
+                                return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                            } else if (sortBy === 'price-high') {
+                                return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                            } else if (sortBy === 'rating') {
+                                return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                            }
+                            return 0;
+                        });
+
+                        cards.forEach(function(card) {
+                            roomsGrid.appendChild(card);
+                        });
+
+                        lucide.createIcons();
+                    } catch (error) {
+                        console.error('Sorting error:', error);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Sort init error:', error);
+        }
+    })();
+
+    // ===== Date Validation =====
+    (function() {
+        try {
+            const today = new Date().toISOString().split('T')[0];
+            const checkIn = document.querySelector('input[name="check_in"]');
+            const checkOut = document.querySelector('input[name="check_out"]');
+
+            if (checkIn) {
+                checkIn.setAttribute('min', today);
+                checkIn.addEventListener('change', function() {
+                    if (checkOut) {
+                        checkOut.setAttribute('min', this.value);
+                        if (checkOut.value && checkOut.value <= this.value) {
+                            checkOut.value = '';
+                        }
+                    }
+                });
+            }
+            if (checkOut) {
+                checkOut.setAttribute('min', today);
+            }
+        } catch (error) {
+            console.error('Date validation error:', error);
+        }
+    })();
+</script>
+{% endblock %}
