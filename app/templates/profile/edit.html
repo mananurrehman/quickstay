@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile - QuickStay{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-brand/5 via-transparent to-brand-light/5 dark:from-brand/10 dark:via-transparent dark:to-brand-light/10">
+    <div class="w-full max-w-lg">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand/10 dark:bg-brand/20 mb-4">
+                <i data-lucide="user-pen" class="w-8 h-8 text-brand dark:text-brand-light"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-content-primary dark:text-content-dark-primary mb-2">
+                Edit Profile
+            </h1>
+            <p class="text-content-secondary dark:text-content-dark-secondary text-sm">
+                Update your personal information
+            </p>
+        </div>
+
+        <!-- Card Container -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-line dark:border-line-dark p-8">
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="mb-6 p-4 rounded-lg flex items-start space-x-3
+                            {% if category == 'success' %}
+                                bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800
+                            {% elif category == 'danger' %}
+                                bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800
+                            {% else %}
+                                bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800
+                            {% endif %}">
+                            <i data-lucide="{% if category == 'success' %}check-circle{% elif category == 'danger' %}alert-circle{% else %}info{% endif %}"
+                               class="w-5 h-5 mt-0.5 flex-shrink-0
+                               {% if category == 'success' %}text-green-600 dark:text-green-400
+                               {% elif category == 'danger' %}text-red-600 dark:text-red-400
+                               {% else %}text-blue-600 dark:text-blue-400{% endif %}"></i>
+                            <p class="text-sm
+                               {% if category == 'success' %}text-green-800 dark:text-green-200
+                               {% elif category == 'danger' %}text-red-800 dark:text-red-200
+                               {% else %}text-blue-800 dark:text-blue-200{% endif %}">
+                                {{ message }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Edit Profile Form -->
+            <form method="POST" action="{{ url_for('profile.edit') }}" id="edit-form" class="space-y-5">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <!-- Read-Only Fields Notice -->
+                <div class="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+                    <div class="flex items-start space-x-2">
+                        <i data-lucide="info" class="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-600 dark:text-blue-400"></i>
+                        <p class="text-xs text-blue-700 dark:text-blue-300">
+                            Username and Email cannot be changed. Contact support if you need to update them.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Username (Read-Only) -->
+                <div>
+                    <label class="block text-sm font-medium text-content-primary dark:text-content-dark-primary mb-1.5">
+                        Username
+                        <span class="inline-flex items-center ml-1.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-700 text-content-secondary dark:text-content-dark-secondary">
+                            <i data-lucide="lock" class="w-3 h-3 mr-0.5"></i>
+                            Fixed
+                        </span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="at-sign" class="w-4 h-4 text-content-secondary dark:text-content-dark-secondary"></i>
+                        </div>
+                        <input type="text" disabled
+                               value="{{ current_user.username }}"
+                               class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-gray-100 dark:bg-gray-700 border border-line dark:border-line-dark text-content-secondary dark:text-content-dark-secondary text-sm cursor-not-allowed">
+                    </div>
+                </div>
+
+                <!-- Email (Read-Only) -->
+                <div>
+                    <label class="block text-sm font-medium text-content-primary dark:text-content-dark-primary mb-1.5">
+                        Email Address
+                        <span class="inline-flex items-center ml-1.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-700 text-content-secondary dark:text-content-dark-secondary">
+                            <i data-lucide="lock" class="w-3 h-3 mr-0.5"></i>
+                            Fixed
+                        </span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="mail" class="w-4 h-4 text-content-secondary dark:text-content-dark-secondary"></i>
+                        </div>
+                        <input type="email" disabled
+                               value="{{ current_user.email }}"
+                               class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-gray-100 dark:bg-gray-700 border border-line dark:border-line-dark text-content-secondary dark:text-content-dark-secondary text-sm cursor-not-allowed">
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-line dark:border-line-dark"></div>
+                    </div>
+                    <div class="relative flex justify-center">
+                        <span class="bg-white dark:bg-gray-800 px-3 text-xs font-medium text-content-secondary dark:text-content-dark-secondary uppercase tracking-wider">
+                            Editable Fields
+                        </span>
+                    </div>
+                </div>
+
+                <!-- First Name & Last Name (Side by Side) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- First Name -->
+                    <div>
+                        <label for="first_name" class="block text-sm font-medium text-content-primary dark:text-content-dark-primary mb-1.5">
+                            First Name <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="w-4 h-4 text-content-secondary dark:text-content-dark-secondary"></i>
+                            </div>
+                            <input type="text" id="first_name" name="first_name" required
+                                   placeholder="John"
+                                   value="{{ request.form.get('first_name', current_user.first_name) }}"
+                                   class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary placeholder-content-secondary dark:placeholder-content-dark-secondary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                        </div>
+                        <p id="first-name-error" class="hidden mt-1 text-xs text-red-500"></p>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div>
+                        <label for="last_name" class="block text-sm font-medium text-content-primary dark:text-content-dark-primary mb-1.5">
+                            Last Name
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i data-lucide="user" class="w-4 h-4 text-content-secondary dark:text-content-dark-secondary"></i>
+                            </div>
+                            <input type="text" id="last_name" name="last_name"
+                                   placeholder="Doe"
+                                   value="{{ request.form.get('last_name', current_user.last_name or '') }}"
+                                   class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary placeholder-content-secondary dark:placeholder-content-dark-secondary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-content-primary dark:text-content-dark-primary mb-1.5">
+                        Phone Number
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="phone" class="w-4 h-4 text-content-secondary dark:text-content-dark-secondary"></i>
+                        </div>
+                        <input type="tel" id="phone" name="phone"
+                               placeholder="+1 234 567 8900"
+                               value="{{ request.form.get('phone', current_user.phone or '') }}"
+                               class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary placeholder-content-secondary dark:placeholder-content-dark-secondary text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all">
+                    </div>
+                    <p id="phone-error" class="hidden mt-1 text-xs text-red-500"></p>
+                    <p class="mt-1 text-xs text-content-secondary dark:text-content-dark-secondary">
+                        Optional — helps us reach you about your bookings
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row sm:space-x-3 space-y-3 sm:space-y-0 pt-2">
+                    <!-- Save Button -->
+                    <button type="submit" id="save-btn"
+                            class="flex-1 px-6 py-3 bg-brand hover:bg-brand-hover dark:bg-brand-light dark:hover:bg-brand-light-hover text-white font-medium rounded-lg transition-all duration-200 flex items-center justify-center space-x-2">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        <span>Save Changes</span>
+                    </button>
+
+                    <!-- Cancel Button -->
+                    <a href="{{ url_for('profile.view') }}"
+                       class="flex-1 px-6 py-3 bg-bg-main dark:bg-bg-dark-main border border-line dark:border-line-dark text-content-primary dark:text-content-dark-primary font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 flex items-center justify-center space-x-2">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                        <span>Cancel</span>
+                    </a>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- Back to Profile Link -->
+        <div class="text-center mt-6">
+            <a href="{{ url_for('profile.view') }}"
+               class="inline-flex items-center text-sm text-content-secondary dark:text-content-dark-secondary hover:text-brand dark:hover:text-brand-light transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-1.5"></i>
+                Back to Profile
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // ================================
+    // Unsaved Changes Detection
+    // ================================
+    (function() {
+        try {
+            var form = document.getElementById('edit-form');
+            var hasChanges = false;
+            var isSubmitting = false;
+
+            // Track original values
+            var originalValues = {};
+            var editableInputs = form.querySelectorAll('input:not([type="hidden"]):not([disabled])');
+
+            editableInputs.forEach(function(input) {
+                originalValues[input.name] = input.value;
+
+                input.addEventListener('input', function() {
+                    hasChanges = false;
+                    editableInputs.forEach(function(inp) {
+                        if (inp.value !== originalValues[inp.name]) {
+                            hasChanges = true;
+                        }
+                    });
+                });
+            });
+
+            // Mark as submitting on form submit
+            form.addEventListener('submit', function() {
+                isSubmitting = true;
+            });
+
+            // Warn on page leave
+            window.addEventListener('beforeunload', function(e) {
+                if (hasChanges && !isSubmitting) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+        } catch (error) {
+            console.error('Unsaved changes detection error:', error);
+        }
+    })();
+
+    // ================================
+    // Form Validation
+    // ================================
+    (function() {
+        try {
+            var form = document.getElementById('edit-form');
+            var saveBtn = document.getElementById('save-btn');
+
+            // Input elements
+            var firstNameInput = document.getElementById('first_name');
+            var phoneInput = document.getElementById('phone');
+
+            // Error elements
+            var firstNameError = document.getElementById('first-name-error');
+            var phoneError = document.getElementById('phone-error');
+
+            // Helper functions
+            function showError(element, message) {
+                element.textContent = message;
+                element.classList.remove('hidden');
+            }
+
+            function hideError(element) {
+                element.classList.add('hidden');
+            }
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    var isValid = true;
+
+                    // Clear previous errors
+                    hideError(firstNameError);
+                    hideError(phoneError);
+
+                    // First name validation
+                    var firstName = firstNameInput.value.trim();
+                    if (!firstName) {
+                        showError(firstNameError, 'First name is required.');
+                        isValid = false;
+                    } else if (firstName.length < 2) {
+                        showError(firstNameError, 'First name must be at least 2 characters.');
+                        isValid = false;
+                    } else if (firstName.length > 50) {
+                        showError(firstNameError, 'First name must not exceed 50 characters.');
+                        isValid = false;
+                    }
+
+                    // Phone validation (optional)
+                    var phone = phoneInput.value.trim();
+                    if (phone && !/^[+]?[\d\s\-()]{7,20}$/.test(phone)) {
+                        showError(phoneError, 'Please enter a valid phone number.');
+                        isValid = false;
+                    }
+
+                    if (!isValid) {
+                        e.preventDefault();
+                        // Scroll to first error
+                        var firstError = document.querySelector('.text-red-500:not(.hidden)');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        return;
+                    }
+
+                    // Show loading state
+                    saveBtn.disabled = true;
+                    saveBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Saving...</span>';
+                    lucide.createIcons();
+                });
+            }
+
+            // Clear errors on input
+            if (firstNameInput && firstNameError) {
+                firstNameInput.addEventListener('input', function() {
+                    hideError(firstNameError);
+                });
+            }
+
+            if (phoneInput && phoneError) {
+                phoneInput.addEventListener('input', function() {
+                    hideError(phoneError);
+                });
+            }
+        } catch (error) {
+            console.error('Form validation error:', error);
+        }
+    })();
+</script>
+{% endblock %}
