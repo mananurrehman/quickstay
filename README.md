@@ -78,7 +78,7 @@ A full-featured hotel booking web application built with Flask, PostgreSQL, and 
 ---
 
 ## 📁 Project Structure
-
+```
 QuickStay/
 │
 ├── app/
@@ -144,7 +144,7 @@ QuickStay/
 ├── Jenkinsfile # CI/CD pipeline
 ├── requirements.txt # Python dependencies
 └── run.py # Application entry point
-
+```
 ---
 
 ## 📋 Prerequisites
