@@ -30,3 +30,6 @@ Thumbs.db
 
 # Uploads
 app/static/images/rooms/uploads/
+
+#structure
+structure.txt
