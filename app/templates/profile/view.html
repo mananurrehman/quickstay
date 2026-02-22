@@ -177,36 +177,35 @@
 
                         <!-- Username -->
                         <div>
-                            <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1 uppercase tracking-wider">
-                                Username
-                            </label>
-                            <div class="flex items-center space-x-2">
-                                <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">
-                                    @{{ current_user.username }}
-                                </p>
+                            <label class="flex items-center space-x-2 mb-1">
+                                <span class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary uppercase tracking-wider">
+                                    Username
+                                </span>
                                 <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-700 text-content-secondary dark:text-content-dark-secondary">
                                     <i data-lucide="lock" class="w-3 h-3 mr-0.5"></i>
                                     Fixed
                                 </span>
-                            </div>
+                            </label>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary break-all">
+                                @{{ current_user.username }}
+                            </p>
                         </div>
 
                         <!-- Email -->
                         <div>
-                            <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1 uppercase tracking-wider">
-                                Email
-                            </label>
-                            <div class="flex items-center space-x-2">
-                                <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary">
-                                    {{ current_user.email }}
-                                </p>
+                            <label class="flex items-center space-x-2 mb-1">
+                                <span class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary uppercase tracking-wider">
+                                    Email
+                                </span>
                                 <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs bg-gray-100 dark:bg-gray-700 text-content-secondary dark:text-content-dark-secondary">
                                     <i data-lucide="lock" class="w-3 h-3 mr-0.5"></i>
                                     Fixed
                                 </span>
-                            </div>
+                            </label>
+                            <p class="text-sm font-medium text-content-primary dark:text-content-dark-primary break-all">
+                                {{ current_user.email }}
+                            </p>
                         </div>
-
                         <!-- Phone -->
                         <div>
                             <label class="block text-xs font-medium text-content-secondary dark:text-content-dark-secondary mb-1 uppercase tracking-wider">
