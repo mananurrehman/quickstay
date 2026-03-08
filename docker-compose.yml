@@ -3,9 +3,7 @@ version: '3.8'
 services:
   # ========== FLASK APP ==========
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: mananurrehman/quickstay:latest
     container_name: quickstay-web
     ports:
       - "5000:5000"
