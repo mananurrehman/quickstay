@@ -1,12 +1,11 @@
-name: 04 - Deploy to EC2
+name: 03 - Deploy to EC2
 on: 
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
-    workflow_dispatch:
+   workflow_run:
+    workflows: ["02 - Docker Security"]
+    types:
+      - completed
+    branches:
+      - main
 
 jobs: 
     deploy: 
