@@ -41,7 +41,8 @@ jobs:
                     docker compose down || true
 
                     echo "Building Docker image..."
-                    docker compose build --no-cache
+                    echo "Pulling latest image from DockerHub..."
+                    docker pull ${{ secrets.DOCKERHUB_USERNAME }}/quickstay:latest
 
                     echo "Starting containers..."
                     docker compose up -d
