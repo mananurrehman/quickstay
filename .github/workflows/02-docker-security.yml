@@ -1,13 +1,12 @@
-name: 03 - Docker Security
+name: 02 - Docker Security
 
 on:
-  push:
+  workflow_run:
+    workflows: ["01 - CI Pipeline"]
+    types:
+      - completed
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
 
 jobs:
     
