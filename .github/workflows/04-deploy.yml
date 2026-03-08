@@ -23,16 +23,19 @@ jobs:
                 username: ${{ secrets.EC2_USERNAME }}
                 key: ${{ secrets.EC2_SSH_KEY }}
                 script: |
+                    set -e
                     echo "Starting QuickStay deployment..."
 
                     cd /home/ubuntu/quickstay
 
                     if [ -d ".git" ]; then
-                    echo "Pulling latest code..."
-                    git pull origin main
+                        echo "Pulling latest code..."
+                        git pull origin main
                     else
-                    echo "Cloning repository..."
-                    git clone https://github.com/mananurrehman/quickstay.git .
+                        echo "Cloning repository..."
+                        git clone https://github.com/mananurrehman/quickstay.git /tmp/qs-temp
+                        cp -r /tmp/qs-temp/. /home/ubuntu/quickstay/
+                        rm -rf /tmp/qs-temp
                     fi
 
                     echo "Stopping existing containers..."
