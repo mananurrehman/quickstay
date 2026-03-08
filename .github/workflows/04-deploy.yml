@@ -1,0 +1,57 @@
+name: 04 - Deploy to EC2
+on: 
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs: 
+    deploy: 
+        name: Deploy QuickStay to EC2
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Deploy to EC2 vis SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.EC2_USERNAME }}
+                key: ${{ secrets.EC2_SSH_KEY }}
+                script: |
+                    echo "Starting QuickStay deployment..."
+
+                    cd /home/ubuntu/quickstay
+
+                    if [ -d ".git" ]; then
+                    echo "Pulling latest code..."
+                    git pull origin main
+                    else
+                    echo "Cloning repository..."
+                    git clone https://github.com/mananurrehman/quickstay.git .
+                    fi
+
+                    echo "Stopping existing containers..."
+                    docker compose down || true
+
+                    echo "Building Docker image..."
+                    docker compose build --no-cache
+
+                    echo "Starting containers..."
+                    docker compose up -d
+
+                    echo "Waiting for app to start..."
+                    sleep 15
+
+                    echo "Running containers:"
+                    docker compose ps
+
+                    echo "Recent web logs:"
+                    docker compose logs web --tail=20
+
+                    echo "QuickStay deployed successfully!"  
+                    echo "You can access the app at http://${{ secrets.EC2_HOST }}:5000"
