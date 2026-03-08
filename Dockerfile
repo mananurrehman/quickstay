@@ -6,9 +6,9 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc=4:13.2.0-7ubuntu1 \
+    libpq-dev=16.13-0ubuntu0.24.04.1 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
@@ -22,9 +22,9 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    curl \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq-dev=16.13-0ubuntu0.24.04.1 \
+    curl=8.5.0-2ubuntu10.7 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
