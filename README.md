@@ -46,7 +46,7 @@ A full-featured hotel booking web application built with Flask, PostgreSQL, and 
 - 🚫 **Account Deactivation** — Soft delete with password confirmation
 - ⏱️ **OTP Expiry** — Time-limited OTP codes (10 minutes)
 
-### Admin Features
+### Admin Features (Working on it)
 - 📊 **Admin Dashboard** — Manage users, rooms, and bookings
 - 👥 **User Management** — View, block/unblock users
 
